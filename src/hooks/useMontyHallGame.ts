@@ -36,11 +36,14 @@ export function useMontyHallGame() {
     // Host reveals K losing doors from the remaining doors, avoiding cars and the selected.
     const remaining = Array.from({ length: numDoors }, (_, d) => d).filter(d => d !== door && !state.prizeDoors.has(d));
     const revealed = new Set<number>();
-    for (let i = 0; i < Math.min(numReveals, remaining.length); i++) {
+    const actualReveals = Math.min(numReveals, remaining.length);
+    console.log(`chooseDoor: door=${door}, numDoors=${numDoors}, numReveals=${numReveals}, prizeDoors=${Array.from(state.prizeDoors)}, remaining=${remaining}, actualReveals=${actualReveals}`);
+    for (let i = 0; i < actualReveals; i++) {
       const pickIdx = Math.floor(Math.random() * remaining.length);
       const r = remaining.splice(pickIdx, 1)[0];
       revealed.add(r);
     }
+    console.log('Revealed doors:', Array.from(revealed));
     setState((prev: GameState) => ({ ...prev, selectedDoor: door, initialDoor: door, revealedDoors: revealed, step: 'switch' }));
   }, [state.step, state.prizeDoors, numDoors, numReveals]);
 

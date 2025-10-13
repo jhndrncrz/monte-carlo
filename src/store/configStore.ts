@@ -24,12 +24,13 @@ export const useConfigStore = create<ConfigStore>((set, get) => ({
 
     numDoors = clamp(Math.round(numDoors), 3, 50);
     numCars = clamp(Math.round(numCars), 1, Math.max(1, numDoors - 1));
-    // Ensure at least one unrevealed other door remains: numReveals <= numDoors - 2
-    numReveals = clamp(Math.round(numReveals), 1, Math.max(1, numDoors - 2));
-    // Ensure reveals do not exceed available goats (worst case initial pick is goat: goats = numDoors - numCars)
-    const maxRevealsByGoats = Math.max(1, (numDoors - numCars) - 0); // host can't reveal cars
-    numReveals = clamp(numReveals, 1, Math.min(numDoors - 2, maxRevealsByGoats));
+    // Ensure at least one unrevealed other door remains for switching: numReveals <= numDoors - 2
+    // Ensure reveals do not exceed available goats in worst case (player picks goat door)
+    // Worst case: player picks goat, so (numDoors - numCars - 1) goats remain available for reveal
+    const maxRevealsByGoats = Math.max(0, numDoors - numCars - 1); // -1 for selected goat door
+    numReveals = clamp(Math.round(numReveals), 1, Math.min(numDoors - 2, maxRevealsByGoats));
 
+    console.log(`Config validation: doors=${numDoors}, cars=${numCars}, reveals=${numReveals}, maxByGoats=${maxRevealsByGoats}`);
     return { numDoors, numCars, numReveals };
   }),
 }));

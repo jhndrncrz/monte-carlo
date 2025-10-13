@@ -129,7 +129,7 @@ export default function PlayMode() {
         <Stack gap="sm">
           <Text>
             {state.step === 'choose' && 'Choose a door'}
-            {state.step === 'switch' && `Host revealed ${numReveals} losing door(s). Do you want to switch to a different closed door?`}
+            {state.step === 'switch' && `Host revealed ${state.revealedDoors.size} losing door(s). Do you want to switch to a different closed door?`}
             {state.step === 'result' && (state.lastWin ? 'You won!' : 'You lost this round.')}
           </Text>
           <Stack gap="sm" style={{ minHeight: 80 }}>
