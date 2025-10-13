@@ -70,7 +70,7 @@ export default function IntroHero() {
                         <ThemeIcon color="violet" ><IconReportAnalytics size={16} /></ThemeIcon>
                         <Text fw={600}>Goal</Text>
                     </Group>
-                    <Text size="sm" c="dimmed">Use the simulator to see empirical win rates approach the theoretical values as trials increase.</Text>
+                    <Text>Use the simulator to see empirical win rates approach the theoretical values as trials increase.</Text>
                     </Stack>
                 </Group>
             </Stack>
